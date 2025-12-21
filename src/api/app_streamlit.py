@@ -137,9 +137,9 @@ if page == "🔮 Prédiction":
         # Option 1: Entrer un numéro de cycle
         st.markdown("#### Option 1: Utiliser un cycle existant")
         cycle_number = st.number_input(
-            "Numéro de cycle (1-2205):",
+            "Numéro de cycle (1-200):",
             min_value=1,
-            max_value=2205,
+            max_value=200,
             value=100,
             step=1
         )

@@ -272,8 +272,8 @@ def display_mlflow_page():
                         st.metric("ID Exécution", selected_run['run_id'][:12] + "...")
                     with col2:
                         st.metric("Status", selected_run['status'])
-                    with col3:
-                        st.metric("Durée", f"{(selected_run.get('end_time', selected_run['start_time']) - selected_run['start_time']) / 1000:.2f}s")
+                    # with col3:
+                        # st.metric("Durée", f"{(selected_run.get('end_time', selected_run['start_time']) - selected_run['start_time']) / 1000:.2f}s")
                     
                     # Afficher les métriques
                     st.markdown("#### Métriques")
