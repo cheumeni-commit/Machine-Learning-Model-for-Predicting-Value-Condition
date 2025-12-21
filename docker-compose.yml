@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  streamlit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: valve-condition-predictor
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./mlruns:/app/mlruns
+      - ./storage:/app/storage
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  mlflow-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlflow-ui
+    command: mlflow ui --backend-store-uri file:./mlruns --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    profiles:
+      - mlflow
