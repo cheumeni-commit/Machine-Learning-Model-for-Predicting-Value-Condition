@@ -15,6 +15,7 @@ logger.setLevel(logging.INFO)
 
 # Models registry
 _MODELS_REGISTRY_ = {'RandomForestClassifier': RandomForestClassifier,
+                     'xgb_Classifier': xgb.XGBClassifier,
                      'SGDClassifier': SGDClassifier
                      }
 
