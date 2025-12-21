@@ -11,7 +11,7 @@ def load_param(file_name: str) -> dict:
     """Load parameters from a YAML file."""
 
     try:
-        with open(file_name, 'r') as fp:
+        with open(file_name, 'r', encoding='utf-8') as fp:
             read_data = yaml.safe_load(fp)
     except Exception as e:
         logger.error(f"Error in load_param: {e} - File: {file_name}")

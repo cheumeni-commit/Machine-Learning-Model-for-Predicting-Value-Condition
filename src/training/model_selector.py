@@ -81,7 +81,7 @@ class ModelSelector:
                 for metric_file in metrics_dir.iterdir():
                     if metric_file.is_file():
                         try:
-                            with open(metric_file, 'r') as f:
+                            with open(metric_file, 'r', encoding='utf-8', errors='replace') as f:
                                 lines = f.readlines()
                                 if lines:
                                     # Format MLflow: timestamp value step
@@ -99,7 +99,7 @@ class ModelSelector:
                 for param_file in params_dir.iterdir():
                     if param_file.is_file():
                         try:
-                            with open(param_file, 'r') as f:
+                            with open(param_file, 'r', encoding='utf-8', errors='replace') as f:
                                 params[param_file.name] = f.read().strip()
                         except Exception as e:
                             logger.warning(f"Erreur lors de la lecture de {param_file}: {e}")
@@ -111,7 +111,7 @@ class ModelSelector:
                 for tag_file in tags_dir.iterdir():
                     if tag_file.is_file():
                         try:
-                            with open(tag_file, 'r') as f:
+                            with open(tag_file, 'r', encoding='utf-8', errors='replace') as f:
                                 tags[tag_file.name] = f.read().strip()
                         except Exception as e:
                             logger.warning(f"Erreur lors de la lecture de {tag_file}: {e}")

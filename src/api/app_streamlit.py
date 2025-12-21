@@ -59,7 +59,7 @@ def load_feature_importances():
         if not feature_importance_path.exists():
             return None
         
-        df = pd.read_csv(feature_importance_path, names=['Feature', 'Importance'], skiprows=1)
+        df = pd.read_csv(feature_importance_path, names=['Feature', 'Importance'], skiprows=1, encoding='utf-8', encoding_errors='replace')
 
         return df.sort_values(by='Importance', ascending=False)
     except Exception as e:

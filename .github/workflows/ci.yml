@@ -47,37 +47,41 @@ jobs:
         # black --check src/ test/
         # flake8 src/ test/ --max-line-length=100 --ignore=E203,W503
 
-  build-docker:
-    name: Build Docker Images
-    runs-on: ubuntu-latest
-    needs: test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    
-    - name: Build Streamlit app image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        file: ./Dockerfile
-        push: false
-        tags: valve-condition-predictor:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-    
-    - name: Build training image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        file: ./Dockerfile.train
-        push: false
-        tags: valve-condition-predictor-train:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+
+
+  # build-docker:
+  #   name: Build Docker Images
+  #   runs-on: ubuntu-latest
+  #   needs: test
+  #   
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v3
+  #   
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v2
+  #   
+  #   - name: Build Streamlit app image
+  #     uses: docker/build-push-action@v4
+  #     with:
+  #       context: .
+  #       file: ./Dockerfile
+  #       push: false
+  #       tags: valve-condition-predictor:latest
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+  #   
+  #   - name: Build training image
+  #     uses: docker/build-push-action@v4
+  #     with:
+  #       context: .
+  #       file: ./Dockerfile.train
+  #       push: false
+  #       tags: valve-condition-predictor-train:latest
+  #       cache-from: type=gha
+  #       cache-to: type=gha,mode=max
+      
+
 
   lint:
     name: Code Linting

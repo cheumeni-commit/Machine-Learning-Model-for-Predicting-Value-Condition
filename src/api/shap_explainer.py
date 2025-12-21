@@ -34,7 +34,8 @@ class SHAPExplainer:
     def initialize_explainer(self):
         """Initialiser l'explainer SHAP avec TreeExplainer."""
         if self.explainer is None:
-            # Utiliser TreeExplainer pour Random Forest
+            # Utiliser TreeExplainer pour les modèles basés sur les arbres
+            # Compatible avec: XGBoost, Random Forest, LightGBM, CatBoost, Decision Trees, etc.
             self.explainer = shap.TreeExplainer(self.model)
             # Calculer les SHAP values pour les données de test
             self.shap_values = self.explainer.shap_values(self.X_test)

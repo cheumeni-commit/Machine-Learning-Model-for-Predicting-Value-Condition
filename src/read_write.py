@@ -50,10 +50,10 @@ def load_data_train_test():
     try:
         logger.info("Loading data train and test...")
         # Load CSV files with comma separator and headers (default pandas behavior)
-        X_train = pd.read_csv(str(dirs.intermediate / 'X_train.csv'))
-        X_test = pd.read_csv(str(dirs.intermediate / 'X_test.csv'))
-        y_train_df = pd.read_csv(str(dirs.intermediate / 'y_train.csv'))
-        y_test_df = pd.read_csv(str(dirs.intermediate / 'y_test.csv'))
+        X_train = pd.read_csv(str(dirs.intermediate / 'X_train.csv'), encoding='utf-8', encoding_errors='replace')
+        X_test = pd.read_csv(str(dirs.intermediate / 'X_test.csv'), encoding='utf-8', encoding_errors='replace')
+        y_train_df = pd.read_csv(str(dirs.intermediate / 'y_train.csv'), encoding='utf-8', encoding_errors='replace')
+        y_test_df = pd.read_csv(str(dirs.intermediate / 'y_test.csv'), encoding='utf-8', encoding_errors='replace')
         
         # Reset indices to ensure alignment
         X_train = X_train.reset_index(drop=True)
@@ -92,7 +92,7 @@ def load_data_train_test():
 
 def load_dataset(path):
     try:
-        return pd.read_csv(path , sep='\t', header=None)
+        return pd.read_csv(path, sep='\t', header=None, encoding='utf-8', encoding_errors='replace')
     except Exception as e:
         logger.error(f"Error in load_dataset: {e}")
         raise e from e
@@ -109,7 +109,7 @@ def save_model(model, *, path):
 
 def save_metrics(metrics, *, path):
     try:
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(metrics, f, indent=2)
         logger.info(f"Metrics saved at {path}")
     except Exception as e:
@@ -119,7 +119,7 @@ def save_metrics(metrics, *, path):
 
 def save_lexique(lexique, *, path):
     try:
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(lexique, f, indent=2)
         logger.info(f"Lexique saved at {path}")
     except Exception as e:
@@ -129,7 +129,7 @@ def save_lexique(lexique, *, path):
 
 def save_metrics_per_class(metrics, *, path):
     try:
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(metrics, f, indent=2)
         logger.info(f"Metrics per class saved at {path}")
     except Exception as e:
@@ -152,7 +152,7 @@ def load_model(path, default=None):
 
 def load_json_file(path, default=None):
     try:
-        with open(path) as fp:
+        with open(path, 'r', encoding='utf-8') as fp:
             return json.load(fp)
     except Exception as e:
         logger.error(f"Error in load_json_file: {e}")
@@ -166,7 +166,7 @@ def load_json_file(path, default=None):
 def save_prediction(predictions,*, path):
     #https://docs.python.org/3/library/json.html
     try:
-        with open(path, 'w') as fp:
+        with open(path, 'w', encoding='utf-8') as fp:
             json.dump(predictions, fp, indent=2)
     except Exception as e:
         logger.error(f"Error in save_prediction: {e}")
