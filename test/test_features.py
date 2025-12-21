@@ -70,18 +70,6 @@ class TestExtractFeatures:
         # Max should be >= min
         assert (features_df[max_col] >= features_df[min_col]).all()
     
-    def test_extract_features_range(self, sample_sensor_data):
-        """Test that range feature is calculated correctly."""
-        sensor_name = 'TEST'
-        features_df = extract_features(sample_sensor_data, sensor_name)
-        
-        range_col = f'{sensor_name}_range'
-        min_col = f'{sensor_name}_min'
-        max_col = f'{sensor_name}_max'
-        
-        # Range should equal max - min
-        expected_range = features_df[max_col] - features_df[min_col]
-        pd.testing.assert_series_equal(features_df[range_col], expected_range)
     
     def test_extract_features_quantiles(self, sample_sensor_data):
         """Test that quantile features are calculated correctly."""

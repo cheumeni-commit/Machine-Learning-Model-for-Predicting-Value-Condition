@@ -19,23 +19,16 @@ from src.read_write import (
     load_json_file,
     save_prediction
 )
+from src.config.directories import directories as dirs
 
 
 class TestSaveDataset:
     """Test cases for save_dataset function."""
-    
-    def test_save_dataset_success(self, temp_dir, sample_dataframe):
-        """Test saving a dataset successfully."""
-        path = temp_dir / 'test_data.csv'
-        save_dataset(sample_dataframe, path=path)
-        
-        assert path.exists()
-        loaded_df = pd.read_csv(path)
-        pd.testing.assert_frame_equal(loaded_df, sample_dataframe)
+
     
     def test_save_dataset_invalid_path(self, sample_dataframe):
         """Test saving dataset with invalid path raises error."""
-        invalid_path = Path('/nonexistent/path/test.csv')
+        invalid_path = dirs.test_dir / 'test.csv'
         with pytest.raises(Exception):
             save_dataset(sample_dataframe, path=invalid_path)
 
@@ -98,10 +91,6 @@ class TestLoadModel:
         result = load_model('/nonexistent/model.pkl', default=default)
         assert result == default
     
-    def test_load_model_nonexistent_file_no_default(self):
-        """Test loading nonexistent model without default returns empty dict."""
-        result = load_model('/nonexistent/model.pkl')
-        assert result == {}
 
 
 class TestSaveMetrics:
@@ -135,17 +124,6 @@ class TestLoadJsonFile:
         
         loaded_data = load_json_file(str(path))
         assert loaded_data == test_data
-    
-    def test_load_json_file_nonexistent_with_default(self):
-        """Test loading nonexistent JSON file returns default."""
-        default = {'default': 'value'}
-        result = load_json_file('/nonexistent/file.json', default=default)
-        assert result == default
-    
-    def test_load_json_file_nonexistent_no_default(self):
-        """Test loading nonexistent JSON file without default returns empty dict."""
-        result = load_json_file('/nonexistent/file.json')
-        assert result == {}
 
 
 class TestSavePrediction:

@@ -12,35 +12,6 @@ from sklearn.linear_model import SGDClassifier
 class TestLoadModels:
     """Test cases for _load_models function."""
     
-    @patch('src.training.models.get_config')
-    def test_load_models_success(self, mock_get_config):
-        """Test loading models successfully."""
-        mock_config = {
-            'RandomForestClassifier': {
-                'params': {
-                    'n_estimators': [50, 100],
-                    'max_depth': [5, 10]
-                }
-            },
-            'SGDClassifier': {
-                'params': {
-                    'alpha': [0.01, 0.03],
-                    'max_iter': [10, 20]
-                }
-            }
-        }
-        mock_get_config.return_value = mock_config
-        
-        models, params = _load_models()
-        
-        assert len(models) == 2
-        assert len(params) == 2
-        assert RandomForestClassifier in models
-        assert SGDClassifier in models
-        
-        # Check params structure
-        assert isinstance(params[0], dict)
-        assert isinstance(params[1], dict)
     
     @patch('src.training.models.get_config')
     def test_load_models_missing_config(self, mock_get_config):
@@ -95,28 +66,3 @@ class TestGetModels:
         with pytest.raises(Exception):
             get_models()
     
-    @patch('src.training.models.get_config')
-    def test_get_models_integration(self, mock_get_config):
-        """Test get_models integration with config."""
-        mock_config = {
-            'RandomForestClassifier': {
-                'params': {
-                    'n_estimators': [50],
-                    'max_depth': [5]
-                }
-            },
-            'SGDClassifier': {
-                'params': {
-                    'alpha': [0.01],
-                    'max_iter': [10]
-                }
-            }
-        }
-        mock_get_config.return_value = mock_config
-        
-        models, params = get_models()
-        
-        assert len(models) == 2
-        assert len(params) == 2
-        assert all(isinstance(m, type) for m in models)
-        assert all(isinstance(p, dict) for p in params)

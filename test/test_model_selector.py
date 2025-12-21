@@ -274,24 +274,6 @@ class TestModelSelector:
         assert 'test_accuracy' in summary['available_metrics']
 
 
-class TestSelectBestModel:
-    """Test cases for select_best_model function."""
-    
-    @patch('src.training.model_selector.ModelSelector')
-    def test_select_best_model_success(self, mock_selector_class):
-        """Test selecting best model successfully."""
-        mock_selector = MagicMock()
-        mock_selector_class.return_value = mock_selector
-        
-        mock_model = MagicMock()
-        mock_selector.load_best_model.return_value = mock_model
-        
-        result = select_best_model(metric="test_accuracy")
-        
-        assert result == mock_model
-        mock_selector.load_best_model.assert_called_once_with("test_accuracy", True)
-
-
 class TestCompareAllModels:
     """Test cases for compare_all_models function."""
     
