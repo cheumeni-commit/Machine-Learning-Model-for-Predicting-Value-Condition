@@ -137,15 +137,6 @@ def save_metrics_per_class(metrics, *, path):
         raise e from e
 
 
-def save_training_output(output, *, directory):
-    try:
-        save_model(output['model'], path = str(directory) + '/' + c_SAVE_MODEL)
-        save_metrics(output['metrics'], path = str(directory) + '/' + c_SAVE_METRICS)
-        logger.info(f"Training output saved at {directory}")
-    except Exception as e:
-        logger.error(f"Error in save_training_output: {e}")
-        raise e from e
-
 def load_model(path, default=None):
     try:
         return joblib.load(path)
