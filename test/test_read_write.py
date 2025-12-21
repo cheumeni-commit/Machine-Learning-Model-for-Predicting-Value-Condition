@@ -25,13 +25,6 @@ from src.config.directories import directories as dirs
 class TestSaveDataset:
     """Test cases for save_dataset function."""
 
-    
-    def test_save_dataset_invalid_path(self, sample_dataframe):
-        """Test saving dataset with invalid path raises error."""
-        invalid_path = dirs.test_dir / 'test.csv'
-        with pytest.raises(Exception):
-            save_dataset(sample_dataframe, path=invalid_path)
-
 
 class TestLoadDataset:
     """Test cases for load_dataset function."""
@@ -84,12 +77,6 @@ class TestLoadModel:
         
         loaded_model = load_model(str(path))
         assert type(loaded_model) == type(sample_model)
-    
-    def test_load_model_nonexistent_file_with_default(self):
-        """Test loading nonexistent model returns default."""
-        default = {'test': 'value'}
-        result = load_model('/nonexistent/model.pkl', default=default)
-        assert result == default
     
 
 

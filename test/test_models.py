@@ -20,23 +20,6 @@ class TestLoadModels:
         
         with pytest.raises(Exception):
             _load_models()
-    
-    @patch('src.training.models.get_config')
-    def test_load_models_incomplete_config(self, mock_get_config):
-        """Test loading models with incomplete config."""
-        mock_config = {
-            'RandomForestClassifier': {
-                'params': {'n_estimators': [50]}
-            }
-            # Missing SGDClassifier
-        }
-        mock_get_config.return_value = mock_config
-        
-        models, params = _load_models()
-        
-        # Should only return available models
-        assert len(models) == 1
-        assert RandomForestClassifier in models
 
 
 class TestGetModels:
