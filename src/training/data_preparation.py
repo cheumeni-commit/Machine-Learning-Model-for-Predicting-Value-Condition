@@ -1,6 +1,6 @@
 import pandas as pd
-import numpy as np
 import logging
+from sklearn.utils import shuffle
 
 from src.config.directories import directories as dirs
 from src.read_write import get_data, save_dataset
@@ -11,7 +11,8 @@ from src.constants import (c_PROFILE_COLUMNS,
                            c_DATA_FS1, 
                            c_DATA_PS2_FEATURES, 
                            c_DATA_FS1_FEATURES, 
-                           c_TRAIN_CYCLES
+                           c_TRAIN_CYCLES,
+                           c_VALVE_CONDITION
                            )
 
 logger = logging.getLogger(__name__)
@@ -24,9 +25,9 @@ def data_preparation():
         data = get_data()
         profile_df = data.get(c_DATA_PROFILE)
         profile_df.columns = c_PROFILE_COLUMNS
-        profile_df['Target'] = (profile_df['Valve_Condition'] == 100).astype(int)
-        ps2_features = extract_features(data.get(c_DATA_PS2), c_DATA_PS2_FEATURES)
-        fs1_features = extract_features(data.get(c_DATA_FS1), c_DATA_FS1_FEATURES)
+        profile_df['Target'] = (profile_df[c_VALVE_CONDITION] == 100).astype(int)
+        ps2_features = extract_features(data.get(c_DATA_PS2), c_DATA_PS2_FEATURES, "PS2")
+        fs1_features = extract_features(data.get(c_DATA_FS1), c_DATA_FS1_FEATURES, "FS1")
         data_df = pd.concat([profile_df, ps2_features, fs1_features], axis=1)
         return data_df
     except Exception as e:
@@ -37,8 +38,10 @@ def data_preparation():
 def data_preparation_train_test():
     try:
         data_df = data_preparation()
+        # data_df = shuffle(data_df)
         train_cycles = c_TRAIN_CYCLES
         X = data_df.drop(columns=c_PROFILE_COLUMNS + ['Target'])
+
         y = data_df['Target']
         X_train = X.iloc[:train_cycles]
         X_test = X.iloc[train_cycles:]

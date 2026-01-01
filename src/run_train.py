@@ -5,12 +5,7 @@ Entraîne le modèle et enregistre tous les résultats dans MLflow
 
 import pandas as pd
 import numpy as np
-import joblib
-import os
-import sys
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-from sklearn.metrics import accuracy_score, classification_report
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -169,7 +164,7 @@ def main():
     # Initialiser MLflow
     mlflow_manager = MLflowManager(
         experiment_name="Valve Condition Predictor",
-        tracking_uri=f"file:{dirs.raw_store_dir}"
+        tracking_uri="file:.{}".format(dirs.raw_store_dir)
     )
     
     # Charger les données
@@ -217,7 +212,7 @@ def main():
     print("ENTRAÎNEMENT TERMINÉ")
     print("="*50)
     print("\nPour visualiser les résultats MLflow:")
-    print("  mlflow ui --backend-store-uri file:./mlruns")
+    print("  mlflow ui --backend-store-uri file:{}".format(dirs.raw_store_dir))
     print("\nPuis accédez à http://localhost:5000")
 
 

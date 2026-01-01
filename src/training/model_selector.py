@@ -8,7 +8,6 @@ import mlflow.sklearn
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 import logging
-import yaml
 
 from src.config.directories import directories as dirs
 

@@ -1,7 +1,6 @@
 """
 Unit tests for constants module.
 """
-import pytest
 from src import constants
 
 

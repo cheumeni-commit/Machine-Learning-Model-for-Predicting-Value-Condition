@@ -1,7 +1,6 @@
 """
 Unit tests for directories module.
 """
-import pytest
 from pathlib import Path
 from src.config.directories import directories, _Directories
 

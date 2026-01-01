@@ -6,10 +6,8 @@ Explique les prédictions du modèle avec SHAP (locale et globale)
 import pandas as pd
 import numpy as np
 import shap
-import joblib
 import streamlit as st
 import plotly.graph_objects as go
-import plotly.express as px
 from typing import Tuple, Dict, Any
 import os
 

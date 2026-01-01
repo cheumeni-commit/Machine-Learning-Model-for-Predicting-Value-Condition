@@ -156,7 +156,7 @@ Access the app at `http://localhost:8501`
 
 Launch the MLflow UI:
 ```bash
-mlflow ui --backend-store-uri file:./mlruns
+mlflow ui --backend-store-uri file:./src/storage/mlflow_artifacts
 ```
 
 Access at `http://localhost:5000`
@@ -278,7 +278,7 @@ docker-compose logs -f streamlit-app
 The Docker setup uses volume mounts to persist:
 - **Data**: `./data` - Training and test datasets
 - **Configuration**: `./config` - Configuration files
-- **MLflow Runs**: `./mlruns` - MLflow experiment tracking data
+- **MLflow Runs**: `./src/storage/mlflow_artifacts` - MLflow experiment tracking data
 - **Storage**: `./storage` - Model artifacts and storage
 
 ### Health Checks

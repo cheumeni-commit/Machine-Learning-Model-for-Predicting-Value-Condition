@@ -1,10 +1,10 @@
-from collections import defaultdict
 import logging
 from typing import List
 
 import xgboost as xgb
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import SGDClassifier, LogisticRegression
+from sklearn.svm import SVC
 
 from src.config.config import get_config
 
@@ -15,7 +15,10 @@ logger.setLevel(logging.INFO)
 
 # Models registry
 _MODELS_REGISTRY_ = {'RandomForestClassifier': RandomForestClassifier,
-                     'SGDClassifier': SGDClassifier
+                     'SGDClassifier': SGDClassifier,
+                     'SVC': SVC,
+                     "LogisticRegressor" : LogisticRegression,
+                     'xgb_Classifier' : xgb.XGBClassifier
                      }
 
 

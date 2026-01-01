@@ -5,10 +5,8 @@ Affiche le tracking des modèles, les exécutions et les comparaisons
 
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 from src.training.mlflow_manager import MLflowManager
-import mlflow
 from src.config.directories import directories as dirs
 
 def display_mlflow_page():
@@ -20,7 +18,7 @@ def display_mlflow_page():
     # Initialiser le gestionnaire MLflow
     mlflow_manager = MLflowManager(
         experiment_name="Valve Condition Predictor",
-        tracking_uri=f"file:{dirs.raw_store_dir}"
+        tracking_uri="file:{}".format(dirs.raw_store_dir)
     )
     
     # Créer des onglets

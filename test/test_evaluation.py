@@ -3,7 +3,6 @@ Unit tests for evaluation module.
 """
 import pytest
 import numpy as np
-from sklearn.metrics import precision_recall_fscore_support
 
 from src.training.evaluation import get_metrics, evaluate_model
 

@@ -5,8 +5,6 @@ Avec Explicabilité SHAP et Monitoring du Drift avec Evidently
 
 import streamlit as st
 import pandas as pd
-import numpy as np
-import joblib
 import plotly.graph_objects as go
 import plotly.express as px
 from datetime import datetime
@@ -15,11 +13,11 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importer les modules personnalisés
-from shap_explainer import SHAPExplainer, load_shap_explainer
-from drift_monitor import DriftMonitor, load_drift_monitor
+from shap_explainer import load_shap_explainer
+from drift_monitor import load_drift_monitor
 from streamlit_mlflow_page import display_mlflow_page
 from src.config.directories import directories as dirs
-from src.training.model_selector import ModelSelector, select_best_model, compare_all_models 
+from src.training.model_selector import ModelSelector 
 from src.read_write import load_data_train_test
 
 # Configuration de la page
@@ -70,7 +68,7 @@ def load_feature_importances():
 def load_test_data():
     """Charger les données de test."""
     try:
-        X_train, X_test, y_train, y_test = load_data_train_test()
+        _, X_test, _, y_test = load_data_train_test()
         return X_test, y_test
     except:
         return None, None
@@ -79,7 +77,7 @@ def load_test_data():
 def load_train_data():
     """Charger les données d'entraînement."""
     try:
-        X_train, X_test, y_train, y_test = load_data_train_test()
+        X_train, _, y_train, __annotations__ = load_data_train_test()
         return X_train, y_train
     except:
         return None, None
@@ -137,9 +135,9 @@ if page == "🔮 Prédiction":
         # Option 1: Entrer un numéro de cycle
         st.markdown("#### Option 1: Utiliser un cycle existant")
         cycle_number = st.number_input(
-            "Numéro de cycle (1-200):",
+            "Numéro de cycle (1-205):",
             min_value=1,
-            max_value=200,
+            max_value=205,
             value=100,
             step=1
         )
@@ -203,6 +201,7 @@ if page == "🔮 Prédiction":
                         height=400,
                         showlegend=False
                     )
+
                     st.plotly_chart(fig, use_container_width=True)
                     
                     # Stocker le cycle sélectionné dans la session
@@ -277,6 +276,27 @@ if page == "🔮 Prédiction":
                     
                     with prob_col2:
                         st.metric("P(Optimal)", f"{prediction_proba[1]*100:.2f}%")
+
+                    
+                    # Graphique de probabilité
+                    fig = go.Figure(data=[
+                        go.Bar(
+                            x=['Non-Optimal', 'Optimal'],
+                            y=[prediction_proba[0], prediction_proba[1]],
+                            marker=dict(color=['#ff6b6b', '#51cf66']),
+                            text=[f'{prediction_proba[0]*100:.1f}%', f'{prediction_proba[1]*100:.1f}%'],
+                            textposition='auto',
+                        )
+                    ])
+                    fig.update_layout(
+                        title="Distribution des Probabilités",
+                        xaxis_title="Classe",
+                        yaxis_title="Probabilité",
+                        height=400,
+                        showlegend=False
+                    )
+
+                    st.plotly_chart(fig, use_container_width=True)
                     
                     # Stocker les features manuelles
                     st.session_state.manual_features = features_dict
@@ -290,7 +310,7 @@ if page == "🔮 Prédiction":
         Random Forest Classifier
         
         **Accuracy**
-        85.4%
+        
         
         **Cycles d'Entraînement**
         2000
@@ -299,13 +319,13 @@ if page == "🔮 Prédiction":
         205
         
         **Nombre de Caractéristiques**
-        18
+        16
         """)
         
         st.markdown("### 🎯 Caractéristiques Clés")
         
         if feature_importances is not None:
-            top_features = feature_importances.head(5)
+            top_features = feature_importances.head(10)
             
             fig = go.Figure(data=[
                 go.Bar(
@@ -318,7 +338,7 @@ if page == "🔮 Prédiction":
                 )
             ])
             fig.update_layout(
-                title="Top 5 Caractéristiques",
+                title="Top 10 Caractéristiques",
                 xaxis_title="Importance",
                 yaxis_title="Caractéristique",
                 height=400,
@@ -697,13 +717,13 @@ elif page == "ℹ️ À Propos":
         
         **Type** : Random Forest Classifier
         - **Nombre d'arbres** : 100
-        - **Accuracy** : 85.4%
-        - **Caractéristiques** : 18 (statistiques extraites des capteurs)
+        - **Accuracy** : 
+        - **Caractéristiques** : 16 (statistiques extraites des capteurs)
         
         ### 🚀 Utilisation
         
         1. Allez à l'onglet **"Prédiction"**
-        2. Entrez un numéro de cycle (1-2205) ou les caractéristiques manuellement
+        2. Entrez un numéro de cycle (1-205) ou les caractéristiques manuellement
         3. Cliquez sur **"Prédire"**
         4. Consultez le résultat et la confiance du modèle
         5. Allez à **"Explicabilité SHAP"** pour comprendre la prédiction
@@ -726,7 +746,7 @@ elif page == "ℹ️ À Propos":
         **Modèle ML**
         
         - Type : Random Forest
-        - Accuracy : 85.4%
+        - Accuracy : 
         - Cycles d'entraînement : 2000
         - Cycles de test : 205
         

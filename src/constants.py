@@ -1,3 +1,5 @@
+# Constants
+c_VALVE_CONDITION = "Valve_Condition"
 # Data files
 c_PROFILE = 'profile.txt'
 c_PS2 = 'PS2.txt'

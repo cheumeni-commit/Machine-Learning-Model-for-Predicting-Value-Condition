@@ -5,10 +5,8 @@ Détecte les changements de distribution des données en production
 
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple, Any
-import streamlit as st
+from typing import Dict, List, Any
 import plotly.graph_objects as go
-import plotly.express as px
 from scipy import stats
 
 class DriftMonitor:

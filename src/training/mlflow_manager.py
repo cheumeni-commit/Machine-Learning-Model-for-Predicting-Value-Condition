@@ -7,7 +7,6 @@ import mlflow
 import mlflow.sklearn
 import pandas as pd
 import numpy as np
-import joblib
 import os
 from datetime import datetime
 from typing import Dict, Any, Tuple, Optional

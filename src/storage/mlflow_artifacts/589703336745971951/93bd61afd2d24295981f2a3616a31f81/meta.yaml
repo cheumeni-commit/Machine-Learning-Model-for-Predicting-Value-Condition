@@ -1,0 +1,15 @@
+artifact_uri: file:.C:\Users\jeanc\git_projects\Machine-Learning-Model-for-Predicting-Value-Condition\src\storage\mlflow_artifacts/589703336745971951/93bd61afd2d24295981f2a3616a31f81/artifacts
+end_time: 1767230253110
+entry_point_name: ''
+experiment_id: '589703336745971951'
+lifecycle_stage: active
+run_id: 93bd61afd2d24295981f2a3616a31f81
+run_name: best_RandomForestClassifier
+run_uuid: 93bd61afd2d24295981f2a3616a31f81
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767230250388
+status: 3
+tags: []
+user_id: jeanc
