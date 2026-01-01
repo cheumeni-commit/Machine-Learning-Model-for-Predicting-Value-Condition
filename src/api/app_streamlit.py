@@ -319,7 +319,7 @@ if page == "🔮 Prédiction":
         205
         
         **Nombre de Caractéristiques**
-        16
+        10
         """)
         
         st.markdown("### 🎯 Caractéristiques Clés")

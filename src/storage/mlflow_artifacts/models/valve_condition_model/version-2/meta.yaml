@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1767231697334
+current_stage: None
+description: null
+last_updated_timestamp: 1767231697334
+name: valve_condition_model
+run_id: b5d34073822a4cfa84c6df209af5751a
+run_link: null
+source: file:.C:\Users\jeanc\git_projects\Machine-Learning-Model-for-Predicting-Value-Condition\src\storage\mlflow_artifacts/589703336745971951/b5d34073822a4cfa84c6df209af5751a/artifacts/models
+status: READY
+status_message: null
+storage_location: file:.C:\Users\jeanc\git_projects\Machine-Learning-Model-for-Predicting-Value-Condition\src\storage\mlflow_artifacts/589703336745971951/b5d34073822a4cfa84c6df209af5751a/artifacts/models
+user_id: null
+version: 2
